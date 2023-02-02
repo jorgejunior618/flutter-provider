@@ -1,4 +1,5 @@
 import 'package:client_control/models/client_type.dart';
+import 'package:client_control/pages/client_types_page/client_type_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/hamburger_menu.dart';
@@ -32,14 +33,8 @@ class _ClientTypesPageState extends State<ClientTypesPage> {
       body: ListView.builder(
         itemCount: types.length,
         itemBuilder: (context, index) {
-          return Dismissible(
-            key: UniqueKey(),
-            background: Container(color: Colors.red),
-            child: ListTile(
-              leading: Icon(types[index].icon),
-              title: Text(types[index].name),
-              iconColor: Colors.deepOrange,
-            ),
+          return ClientTypeCard(
+            type: types[index],
             onDismissed: (direction) {
               setState(() {
                 types.removeAt(index);

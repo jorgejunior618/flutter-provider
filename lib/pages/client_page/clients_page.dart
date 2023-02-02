@@ -1,5 +1,6 @@
 import 'package:client_control/models/client_type.dart';
 import 'package:client_control/models/client.dart';
+import 'package:client_control/pages/client_page/client_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/hamburger_menu.dart';
@@ -36,16 +37,10 @@ class _ClientsPageState extends State<ClientsPage> {
       drawer: const HamburgerMenu(),
       body: ListView.builder(
         itemCount: clients.length,
+        padding: const EdgeInsets.only(top: 4.0),
         itemBuilder: (context, index) {
-          return Dismissible(
-            key: UniqueKey(),
-            background: Container(color: Colors.red),
-            child: ListTile(
-              leading: Icon(clients[index].type.icon),
-              title: Text(
-                  clients[index].name + ' (' + clients[index].type.name + ')'),
-              iconColor: Colors.indigo,
-            ),
+          return ClientCard(
+            client: clients[index],
             onDismissed: (direction) {
               setState(() {
                 clients.removeAt(index);
