@@ -6,6 +6,6 @@ class ClientType {
 
   ClientType({
     required this.name,
-    required this.icon
+    this.icon,
   });
 }
