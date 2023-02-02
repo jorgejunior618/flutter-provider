@@ -1,11 +1,22 @@
 import 'package:client_control/models/clients/client.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ClientList extends ChangeNotifier {
-  ClientList({
-    required this.clients,
-  });
+  ClientList(
+    this._clients,
+  );
 
-  List<Client> clients;
+  final List<Client> _clients;
+
+  List<Client> get clients {
+    return _clients;
+  }
+
+  void addClient(Client client) {
+    _clients.add(client);
+  }
+
+  void removeClient(int index) {
+    _clients.removeAt(index);
+  }
 }

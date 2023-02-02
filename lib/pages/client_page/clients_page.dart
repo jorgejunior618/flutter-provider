@@ -39,9 +39,7 @@ class _ClientsPageState extends State<ClientsPage> {
             return ClientCard(
               client: list.clients[index],
               onDismissed: (direction) {
-                setState(() {
-                  list.clients.removeAt(index);
-                });
+                list.removeClient(index);
               },
             );
           },
@@ -131,13 +129,11 @@ class _ClientsPageState extends State<ClientsPage> {
                     TextButton(
                   child: const Text("Salvar"),
                   onPressed: () async {
-                    setState(() {
-                      list.clients.add(Client(
-                        name: nomeInput.text,
-                        email: emailInput.text,
-                        type: dropdownValue,
-                      ));
-                    });
+                    list.addClient(Client(
+                      name: nomeInput.text,
+                      email: emailInput.text,
+                      type: dropdownValue,
+                    ));
                     Navigator.pop(context);
                   },
                 ),
