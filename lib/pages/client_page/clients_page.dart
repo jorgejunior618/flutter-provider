@@ -1,5 +1,5 @@
-import 'package:client_control/models/client_type.dart';
-import 'package:client_control/models/client.dart';
+import 'package:client_control/models/client_types/client_type.dart';
+import 'package:client_control/models/clients/client.dart';
 import 'package:client_control/pages/client_page/client_card.dart';
 import 'package:flutter/material.dart';
 
