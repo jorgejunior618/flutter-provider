@@ -1,7 +1,9 @@
 import 'package:client_control/models/client_types/client_type.dart';
 import 'package:client_control/models/clients/client.dart';
+import 'package:client_control/models/clients/client_list.dart';
 import 'package:client_control/pages/client_page/client_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/hamburger_menu.dart';
 
@@ -20,13 +22,6 @@ List<ClientType> types = [
   ClientType(name: 'Diamond', icon: Icons.diamond),
 ];
 
-List<Client> clients = [
-  Client(name: 'Geraldo', email: 'leo@email.com', type: types[0]),
-  Client(name: 'Paulo', email: 'leo@email.com', type: types[1]),
-  Client(name: 'Caio', email: 'leo@email.com', type: types[2]),
-  Client(name: 'Ruan', email: 'ruan@email.com', type: types[3]),
-];
-
 class _ClientsPageState extends State<ClientsPage> {
   @override
   Widget build(BuildContext context) {
@@ -35,19 +30,22 @@ class _ClientsPageState extends State<ClientsPage> {
         title: Text(widget.title),
       ),
       drawer: const HamburgerMenu(),
-      body: ListView.builder(
-        itemCount: clients.length,
-        padding: const EdgeInsets.only(top: 4.0),
-        itemBuilder: (context, index) {
-          return ClientCard(
-            client: clients[index],
-            onDismissed: (direction) {
-              setState(() {
-                clients.removeAt(index);
-              });
-            },
-          );
-        },
+      body: Consumer<ClientList>(
+        builder: (BuildContext context, ClientList list, Widget? w) =>
+            ListView.builder(
+          itemCount: list.clients.length,
+          padding: const EdgeInsets.only(top: 4.0),
+          itemBuilder: (context, index) {
+            return ClientCard(
+              client: list.clients[index],
+              onDismissed: (direction) {
+                setState(() {
+                  list.clients.removeAt(index);
+                });
+              },
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
@@ -128,18 +126,21 @@ class _ClientsPageState extends State<ClientsPage> {
                   Navigator.pop(context);
                 },
               ),
-              TextButton(
-                child: const Text("Salvar"),
-                onPressed: () async {
-                  setState(() {
-                    clients.add(Client(
-                      name: nomeInput.text,
-                      email: emailInput.text,
-                      type: dropdownValue,
-                    ));
-                  });
-                  Navigator.pop(context);
-                },
+              Consumer<ClientList>(
+                builder: (BuildContext context, ClientList list, Widget? w) =>
+                    TextButton(
+                  child: const Text("Salvar"),
+                  onPressed: () async {
+                    setState(() {
+                      list.clients.add(Client(
+                        name: nomeInput.text,
+                        email: emailInput.text,
+                        type: dropdownValue,
+                      ));
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
               ),
             ],
           );
