@@ -106,21 +106,25 @@ class _ClientTypesPageState extends State<ClientTypesPage> {
             ),
             actions: [
               TextButton(
-                  child: const Text("Salvar"),
-                  onPressed: () {
-                    selectedIcon ??= Icons.credit_score;
-                    types.add(
-                        ClientType(name: nomeInput.text, icon: selectedIcon));
-                    selectedIcon = null;
-                    setState(() {});
-                    Navigator.pop(context);
-                  }),
+                child: const Text("Calcelar"),
+                onPressed: () async {
+                  selectedIcon = null;
+                  Navigator.pop(context);
+                },
+              ),
               TextButton(
-                  child: const Text("Calcelar"),
-                  onPressed: () async {
-                    selectedIcon = null;
-                    Navigator.pop(context);
-                  })
+                child: const Text("Salvar"),
+                onPressed: () {
+                  selectedIcon ??= Icons.credit_score;
+                  types.add(ClientType(
+                    name: nomeInput.text,
+                    icon: selectedIcon,
+                  ));
+                  selectedIcon = null;
+                  setState(() {});
+                  Navigator.pop(context);
+                },
+              ),
             ],
           );
         });

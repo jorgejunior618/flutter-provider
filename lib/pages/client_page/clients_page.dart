@@ -123,21 +123,24 @@ class _ClientsPageState extends State<ClientsPage> {
             ),
             actions: [
               TextButton(
-                  child: const Text("Salvar"),
-                  onPressed: () async {
-                    setState(() {
-                      clients.add(Client(
-                          name: nomeInput.text,
-                          email: emailInput.text,
-                          type: dropdownValue));
-                    });
-                    Navigator.pop(context);
-                  }),
+                child: const Text("Calcelar"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
               TextButton(
-                  child: const Text("Calcelar"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
+                child: const Text("Salvar"),
+                onPressed: () async {
+                  setState(() {
+                    clients.add(Client(
+                      name: nomeInput.text,
+                      email: emailInput.text,
+                      type: dropdownValue,
+                    ));
+                  });
+                  Navigator.pop(context);
+                },
+              ),
             ],
           );
         });
